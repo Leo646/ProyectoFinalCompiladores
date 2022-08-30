@@ -1,0 +1,13 @@
+<Persona>
+	<Apellidos>
+		<Segundo-apellido>Quezada</Segundo-apellido>
+		<Primer-apellido>Torres</Primer-apellido>
+	</Apellidos>
+	<Nombres>
+		<Segundo-Nombre>Vicente </Segundo-Nombre>
+		<Primer-Nombre> Jaime</Primer-Nombre>
+	</Nombres>
+	<Fecha-Nacimiento>20-04-1993</Fecha-Nacimiento>
+	<Nacionalidad>Ecuatoriano</Nacionalidad>
+	<Edad>24</Edad>
+</Persona>

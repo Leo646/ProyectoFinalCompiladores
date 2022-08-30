@@ -1,0 +1,49 @@
+package syntactic;
+
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import helpers.Utils;
+import models.Variable;
+
+parser code
+{:
+    private Symbol s;
+
+    public void syntax_error (Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
+
+:};
+
+action code
+{:
+    public ArrayList<Variable> variables = new ArrayList<Variable>();
+:};
+
+
+terminal SIGNO_MENOR, SIGNO_MAYOR, SIGNO_SLASH, NUMERO, IDENTIFICADOR, CADENA, ERROR;
+
+non terminal START, ETIQUETA, ETIQUETAS;
+
+start with START;
+
+START ::= ETIQUETA;
+
+ETIQUETAS ::= ETIQUETA | ETIQUETAS ETIQUETA;
+
+ETIQUETA ::= SIGNO_MENOR IDENTIFICADOR:identificador SIGNO_MAYOR NUMERO:valor SIGNO_MENOR SIGNO_SLASH IDENTIFICADOR SIGNO_MAYOR{:
+    variables = Utils.addVariables(variables, valor.toString(), identificador.toString());
+:}
+| SIGNO_MENOR IDENTIFICADOR:identificador SIGNO_MAYOR CADENA:valor SIGNO_MENOR SIGNO_SLASH IDENTIFICADOR SIGNO_MAYOR{:
+    variables = Utils.addVariables(variables, valor.toString(), identificador.toString());
+:}
+| SIGNO_MENOR IDENTIFICADOR:identificador SIGNO_MAYOR IDENTIFICADOR:valor SIGNO_MENOR SIGNO_SLASH IDENTIFICADOR SIGNO_MAYOR{:
+    variables = Utils.addVariables(variables, valor.toString(), identificador.toString());
+:}
+| SIGNO_MENOR IDENTIFICADOR:identificador SIGNO_MAYOR ETIQUETAS:valor SIGNO_MENOR SIGNO_SLASH IDENTIFICADOR SIGNO_MAYOR{:
+    variables = Utils.addVariables(variables, null, identificador.toString());
+:};
